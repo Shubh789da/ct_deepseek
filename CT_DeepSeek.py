@@ -49,10 +49,16 @@ def display_db_connection_menu():
 display_db_connection_menu()
 
 if st.session_state.CONNECTED:
-    st.write('You are Searching for:',  st.session_state.text)
+    # st.write('You are Searching for:',  st.session_state.text)
 
     # Load data and initialize session state
     if 'df' not in st.session_state:
+        with st.spinner(f'🔍 Fetching data for: **{st.session_state.text}**'):
+            st.session_state.df = get_clinical_trials_data(st.session_state.text)
+                
+        # Update status message
+        st.success(f"✅ Data fetched successfully for '{st.session_state.text}'!")
+        
         st.session_state.df = get_clinical_trials_data(st.session_state.text)
         st.session_state.context = """Pandas DataFrame you are using is name 'df' :
             Useful for answering questions related to clinical trials
@@ -109,6 +115,10 @@ if st.session_state.CONNECTED:
             -interventionBiological:  Biological interventions (e.g., vaccines, blood products) used in the clinical trial.
     """
         st.session_state.messages = []
+
+        #Display the dataframe
+        st.write('Data Sample: Top 10 rows from the data')
+        st.dataframe(st.session_state.df.head(10))
 
     # Display chat messages
     for message in st.session_state.messages:

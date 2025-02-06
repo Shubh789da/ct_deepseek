@@ -142,6 +142,7 @@ if st.session_state.CONNECTED:
             messages: list
             code: str
             result: dict
+            condition: str
 
         # Define the workflow functions
         def generate_code(state: MessageState):
@@ -188,7 +189,7 @@ if st.session_state.CONNECTED:
                 return code_match.group(1).strip() if code_match else response.strip()
 
             response = chat_completion.choices[0].message.content
-            return {'code': clean_code_response(response)}
+            return {'code': clean_code_response(response), 'condition':st.session_state.text}
 
         def agent(state: MessageState):
             def execute_python(code):

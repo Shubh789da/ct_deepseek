@@ -245,5 +245,5 @@ if st.session_state.CONNECTED:
                 st.error(f"Error: {answer['result']['error']}")
             
             # Update chat history with formatted output
-            formatted_response = f"```text\n{answer['result'].get('output', '')}\n```" if answer['result'].get('output') else f"Error: {answer['result'].get('error')}"
-            st.session_state.messages.append({"role": "assistant", "content": formatted_response})
+            # formatted_response = f"```text\n{answer['result'].get('output', '')}\n```" if answer['result'].get('output') else f"Error: {answer['result'].get('error')}"
+            # st.session_state.messages.append({"role": "assistant", "content": formatted_response})

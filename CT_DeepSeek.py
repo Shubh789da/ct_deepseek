@@ -19,10 +19,10 @@ from clinical_trials_module import get_clinical_trials_data
 from pprint import pprint
 
 # Set up environment variables
-os.environ["GROQ_API_KEY"]="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"
-os.environ["LANGCHAIN_API_KEY"] = "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"
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "langgraph-testing"
+os.environ["GROQ_API_KEY"]= st.secrets["GROQ_API_KEY"]
+os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
+os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
+os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
 
 
 # Initialize Streamlit app
@@ -231,8 +231,12 @@ if st.session_state.CONNECTED:
         # Display assistant response
         with st.chat_message("assistant"):
             # Always show generated code
-            st.code(answer.get('code', ''), language='python')
-            
+            # st.code(answer.get('code', ''), language='python')
+            with st.expander("View Code"):
+                code_placeholder = st.empty()
+                full_code= answer.get('code', '')
+                code_placeholder.code(full_code, language="python")
+                
             # Handle execution results
             if answer['result'].get('output'):
                 # Preserve whitespace formatting using a code block

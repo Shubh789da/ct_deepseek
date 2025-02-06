@@ -116,9 +116,9 @@ if st.session_state.CONNECTED:
     """
         st.session_state.messages = []
 
-        #Display the dataframe
-        st.write('Data Sample: Top 10 rows from the data')
-        st.dataframe(st.session_state.df.head(10))
+    #Display the dataframe
+    st.write('Data Sample: Top 10 rows from the data')
+    st.dataframe(st.session_state.df.head(10))
 
     # Display chat messages
     for message in st.session_state.messages:
